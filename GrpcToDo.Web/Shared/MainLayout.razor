@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<MatAppBarContainer>
+    <MatAppBar Class="mat" Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <div class="sr-tt-logo" @onclick="@((e)=> Navigation.NavigateTo(""))">
+                </div>
+            </MatAppBarSection>
+            <MatAppBarSection>
+                <MatAppBarTitle>ToDo - Web Assembly with gRPC</MatAppBarTitle>
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+ 
+    <MatAppBarContent>
+        @Body
+    </MatAppBarContent>
+</MatAppBarContainer>

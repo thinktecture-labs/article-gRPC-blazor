@@ -1,0 +1,91 @@
+﻿@page "/"
+@using GrpcToDo.Shared.DTOs
+@inject GrpcToDo.Web.Services.ToDoService _service
+
+<div class="todos">
+    @if(toDoItems?.ToDoItemList != null) 
+    {
+        @foreach (var task in toDoItems.ToDoItemList)
+        {
+            @*@((string.IsNullOrEmpty(ErrorMessage)? "hide-errors" : ""))*@
+            <div class="mat-elevation-z5 td-card @(task.Status ? "checked" : "")">
+                <p>@task.Title</p>
+                <div class="module fade">
+                    <span>@task.Description</span>
+                </div>
+                <div class="actions">
+                    @if (!task.Status) {
+                        <MatIconButton Icon="@MatIconNames.Done" @onclick="@(e => UpdateTaskAsync(task))"></MatIconButton>
+                    }
+                    <MatIconButton Icon="@MatIconNames.Delete" @onclick="@(e => DeleteTask(task.Id))"></MatIconButton>
+                </div>
+            </div>
+        }
+    } else {
+        <p>No ToDos!</p>
+    }
+</div>
+<MatButton class="btn-add" Raised="true" OnClick="@(e => { dialogIsOpen = true; })">Add new Task</MatButton>
+
+<MatDialog @bind-IsOpen="@dialogIsOpen">
+    <MatDialogTitle>Add new Task</MatDialogTitle>
+    <MatDialogContent>
+        <p>What do you want to do?</p>
+        <MatTextField @bind-Value="@NewTaskTitle"></MatTextField>
+        <MatTextField @bind-Value="@NewTaskDescription"></MatTextField>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { dialogIsOpen = false; })">Cancel</MatButton>
+        <MatButton OnClick="@AddNewTask">Save</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code{
+
+    public ToDoItems toDoItems;
+    public bool dialogIsOpen = false;
+    public string NewTaskTitle = null;
+    public string NewTaskDescription = null;
+    protected async override Task OnInitializedAsync()
+    {
+        await GetToDoListAsync();
+    }
+
+    protected async Task GetToDoListAsync()
+    {
+        toDoItems = await _service.GetToDoList();
+    }
+    protected async Task AddNewTask(MouseEventArgs e)
+    {
+        var rnd = new Random();
+        await _service.AddToDoData(new ToDoData {
+            Id = rnd.Next(0,Int32.MaxValue),
+            Title = NewTaskTitle,
+            Description = NewTaskDescription,
+            Status = false
+        });
+        dialogIsOpen = false;
+        NewTaskTitle = null;
+        NewTaskDescription = null;
+        await Refresh();
+    }
+
+    protected async Task UpdateTaskAsync(ToDoData data) 
+    {
+        data.Status = true;
+        await _service.UpdateToDoData(data);
+        await Refresh();
+    }
+
+    protected async Task DeleteTask(int id) 
+    {
+        await _service.DeleteDataAsync(id.ToString());
+        await Refresh();
+    }
+
+    private async Task Refresh() 
+    {
+        toDoItems = await _service.GetToDoList();
+        StateHasChanged();
+    }
+}
