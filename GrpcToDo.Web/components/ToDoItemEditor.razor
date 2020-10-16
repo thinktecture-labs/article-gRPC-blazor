@@ -1,0 +1,51 @@
+@using GrpcToDo.Shared.DTOs
+@inject GrpcToDo.Web.Services.ToDoService _service
+
+<MatDialog @bind-IsOpen="@_dialogIsOpen">
+    <MatDialogTitle>Add new Task</MatDialogTitle>
+    <MatDialogContent>
+        <p>What do you want to do?</p>
+        <MatTextField @bind-Value="@NewTaskTitle"></MatTextField>
+        <MatTextField @bind-Value="@NewTaskDescription"></MatTextField>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@Close">Cancel</MatButton>
+        <MatButton OnClick="@AddNewTask">Save</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    [Parameter]
+    public bool DialogIsOpen { 
+        get { return _dialogIsOpen; } 
+        set { _dialogIsOpen = value; }  
+    }
+
+    [Parameter] 
+    public EventCallback<bool> DialogClosed { get; set; }
+
+    private bool _dialogIsOpen = false;
+    public string NewTaskTitle = null;
+    public string NewTaskDescription = null;
+
+    protected async Task AddNewTask(MouseEventArgs e)
+    {
+        var rnd = new Random();
+        await _service.AddToDoData(new ToDoData {
+            Id = rnd.Next(0,Int32.MaxValue),
+            Title = NewTaskTitle,
+            Description = NewTaskDescription,
+            Status = false
+        });
+        _dialogIsOpen = false;
+        NewTaskTitle = null;
+        NewTaskDescription = null;
+        await DialogClosed.InvokeAsync(true);
+    }
+
+    protected async Task Close() 
+    {
+        _dialogIsOpen = false;
+        await DialogClosed.InvokeAsync(false);
+    }
+}
