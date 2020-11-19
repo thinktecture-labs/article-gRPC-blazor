@@ -1,13 +1,13 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
+using GrpcToDo.Shared.Services;
+using GrpcToDo.Web.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Grpc.Net.Client.Web;
-using Grpc.Net.Client;
-using GrpcToDo.Shared.Services;
 using ProtoBuf.Grpc.Client;
-using GrpcToDo.Web.Services;
 
 namespace GrpcToDo.Web
 {
@@ -26,6 +26,12 @@ namespace GrpcToDo.Web
                 var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
                 var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions { HttpClient = httpClient });
                 return channel.CreateGrpcService<IToDoService>();
+            });
+            builder.Services.AddScoped(services =>
+            {
+                var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
+                var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions { HttpClient = httpClient });
+                return channel.CreateGrpcService<ITimeService>();
             });
 
             await builder.Build().RunAsync();

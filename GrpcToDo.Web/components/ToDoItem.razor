@@ -1,5 +1,6 @@
+@using GrpcToDo.Web.Services
 @using GrpcToDo.Shared.DTOs
-@inject GrpcToDo.Web.Services.ToDoService _service
+@inject ToDoService ToDoService
 
  <div class="mat-elevation-z5 td-card @(Item.Status ? "checked" : "")">
     <p>@Item.Title</p>
@@ -20,16 +21,16 @@
     [Parameter] 
     public EventCallback<bool> ToDoItemChanged { get; set; }
 
-    protected async Task UpdateTaskAsync(ToDoData data) 
+    private async Task UpdateTaskAsync(ToDoData data) 
     {
         data.Status = true;
-        await _service.UpdateToDoData(data);
+        await ToDoService.UpdateToDoData(data);
         await ToDoItemChanged.InvokeAsync(true);
     }
 
-    protected async Task DeleteTask(int id) 
+    private async Task DeleteTask(int id) 
     {
-        await _service.DeleteDataAsync(id.ToString());
+        await ToDoService.DeleteDataAsync(id.ToString());
         await ToDoItemChanged.InvokeAsync(true);
     }
 }

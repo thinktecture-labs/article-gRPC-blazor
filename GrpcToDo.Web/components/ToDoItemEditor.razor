@@ -1,12 +1,13 @@
+@using GrpcToDo.Web.Services
 @using GrpcToDo.Shared.DTOs
-@inject GrpcToDo.Web.Services.ToDoService _service
+@inject ToDoService ToDoService
 
 <MatDialog @bind-IsOpen="@_dialogIsOpen">
     <MatDialogTitle>Add new Task</MatDialogTitle>
     <MatDialogContent>
         <p>What do you want to do?</p>
-        <MatTextField @bind-Value="@NewTaskTitle"></MatTextField>
-        <MatTextField @bind-Value="@NewTaskDescription"></MatTextField>
+        <MatTextField @bind-Value="@_newTaskTitle"></MatTextField>
+        <MatTextField @bind-Value="@_newTaskDescription"></MatTextField>
     </MatDialogContent>
     <MatDialogActions>
         <MatButton OnClick="@Close">Cancel</MatButton>
@@ -15,37 +16,41 @@
 </MatDialog>
 
 @code {
+
     [Parameter]
-    public bool DialogIsOpen { 
-        get { return _dialogIsOpen; } 
-        set { _dialogIsOpen = value; }  
+    public bool DialogIsOpen
+    {
+        get => _dialogIsOpen;
+        set => _dialogIsOpen = value;
     }
 
-    [Parameter] 
+    [Parameter]
     public EventCallback<bool> DialogClosed { get; set; }
 
-    private bool _dialogIsOpen = false;
-    public string NewTaskTitle = null;
-    public string NewTaskDescription = null;
+    private bool _dialogIsOpen;
+    private string _newTaskTitle;
+    private string _newTaskDescription;
 
-    protected async Task AddNewTask(MouseEventArgs e)
+    private async Task AddNewTask(MouseEventArgs e)
     {
         var rnd = new Random();
-        await _service.AddToDoData(new ToDoData {
-            Id = rnd.Next(0,Int32.MaxValue),
-            Title = NewTaskTitle,
-            Description = NewTaskDescription,
+        await ToDoService.AddToDoData(new ToDoData
+        {
+            Id = rnd.Next(0, Int32.MaxValue),
+            Title = _newTaskTitle,
+            Description = _newTaskDescription,
             Status = false
         });
         _dialogIsOpen = false;
-        NewTaskTitle = null;
-        NewTaskDescription = null;
+        _newTaskTitle = null;
+        _newTaskDescription = null;
         await DialogClosed.InvokeAsync(true);
     }
 
-    protected async Task Close() 
+    private async Task Close()
     {
         _dialogIsOpen = false;
         await DialogClosed.InvokeAsync(false);
     }
+
 }

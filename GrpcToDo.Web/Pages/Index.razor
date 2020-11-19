@@ -1,44 +1,42 @@
 ﻿@page "/"
 @using GrpcToDo.Shared.DTOs
 @using GrpcToDo.Web.components
-@inject GrpcToDo.Web.Services.ToDoService _service
+@inject GrpcToDo.Web.Services.ToDoService ToDoService
 
 
-@if(toDoItems?.ToDoItemList != null) 
+@if(_toDoItems?.ToDoItemList != null) 
 {
     <div class="todos">
-        @foreach (var task in toDoItems.ToDoItemList)
+        @foreach (var task in _toDoItems.ToDoItemList)
         {
             <ToDoItem Item=@task ToDoItemChanged="Refresh"></ToDoItem>
         }
     </div>
 } else {
-    <p>No ToDos!</p>
+    <p style="padding: 0 24px;">Sie haben derzeit keine Aufgaben</p>
 }
 
-<MatButton class="btn-add" Raised="true" OnClick="@(e => { dialogIsOpen = true; })">Add new Task</MatButton>
+<MatButton class="btn-add" Raised="true" OnClick="@(e => { _dialogIsOpen = true; })">Task hinzufügen</MatButton>
 
-<ToDoItemEditor DialogIsOpen="@dialogIsOpen" DialogClosed="@(async (e) => { await CloseDialog(e); })"></ToDoItemEditor>
+<ToDoItemEditor DialogIsOpen="@_dialogIsOpen" DialogClosed="@(async (e) => { await CloseDialog(e); })"></ToDoItemEditor>
 
 @code{
 
-    public ToDoItems toDoItems;
-    public bool dialogIsOpen = false;
-    public string NewTaskTitle = null;
-    public string NewTaskDescription = null;
-    protected async override Task OnInitializedAsync()
+    private ToDoItems _toDoItems;
+    private bool _dialogIsOpen;
+    protected override async Task OnInitializedAsync()
     {
         await GetToDoListAsync();
     }
 
     protected async Task GetToDoListAsync()
     {
-        toDoItems = await _service.GetToDoList();
+        _toDoItems = await ToDoService.GetToDoList();
     }
 
     protected async Task CloseDialog(bool refresh) 
     {
-        dialogIsOpen = false;
+        _dialogIsOpen = false;
         if (refresh)
         {
             await Refresh();
@@ -47,7 +45,7 @@
 
     private async Task Refresh() 
     {
-        toDoItems = await _service.GetToDoList();
+        _toDoItems = await ToDoService.GetToDoList();
         StateHasChanged();
     }
 }
