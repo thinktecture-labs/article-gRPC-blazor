@@ -1,6 +1,7 @@
 @page "/"
 @using GrpcToDo.Shared.DTOs
-@using GrpcToDo.Web.components
+@using GrpcToDo.Web.Components
+@using MatBlazor
 @inject GrpcToDo.Web.Services.ToDoService ToDoService
 
 
@@ -12,7 +13,9 @@
             <ToDoItem Item=@task ToDoItemChanged="Refresh"></ToDoItem>
         }
     </div>
-} else {
+}
+else
+{
     <p style="padding: 0 24px;">Sie haben derzeit keine Aufgaben</p>
 }
 

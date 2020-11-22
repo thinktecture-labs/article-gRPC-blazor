@@ -1,10 +1,6 @@
-﻿using Grpc.Net.Client;
-using GrpcToDo.Shared.DTOs;
+﻿using GrpcToDo.Shared.DTOs;
 using GrpcToDo.Shared.Services;
-using ProtoBuf.Grpc.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GrpcToDo.Web.Services
