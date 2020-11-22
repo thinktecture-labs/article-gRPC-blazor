@@ -24,11 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GrpcToDo.Shared\GrpcToDo.Shared.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+      <ReferenceSourceTarget></ReferenceSourceTarget>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Services\" />
-    <Folder Include="wwwroot\css\images\" />
   </ItemGroup>
 </Project>
