@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GrpcToDo.Server.Data;
 using GrpcToDo.Shared.DTOs;
@@ -96,9 +97,9 @@ namespace GrpcToDo.Server.GrpcServices
             return _dataContext.ToDoDbItems.Where(item => item.Id == query.Id).FirstOrDefaultAsync();
         }
 
-        public async Task<ToDoItems> GetToDosAsync()
+        public async Task<List<ToDoData>> GetToDosAsync()
         {
-            return new ToDoItems {ToDoItemList = await _dataContext.ToDoDbItems.ToListAsync()};
+            return await _dataContext.ToDoDbItems.ToListAsync();
         }
     }
 }

@@ -53,7 +53,7 @@
         {
             await foreach (var time in TimeService.SubscribeAsync(new CallContext(options)))
             {
-                _time = time.Time;
+                _time = time;
                 StateHasChanged();
             }
         }

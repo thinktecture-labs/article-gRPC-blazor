@@ -11,6 +11,6 @@ namespace GrpcToDo.Shared.Services
     [ServiceContract]
     public interface ITimeService
     {
-        IAsyncEnumerable<TimeResult> SubscribeAsync(CallContext context = default);
+        IAsyncEnumerable<string> SubscribeAsync(CallContext context = default);
     }
 }

@@ -4,10 +4,10 @@
 @inject GrpcToDo.Web.Services.ToDoService ToDoService
 
 
-@if(_toDoItems?.ToDoItemList != null) 
+@if(_toDoItems != null) 
 {
     <div class="todos">
-        @foreach (var task in _toDoItems.ToDoItemList)
+        @foreach (var task in _toDoItems)
         {
             <ToDoItem Item=@task ToDoItemChanged="Refresh"></ToDoItem>
         }
@@ -22,7 +22,7 @@
 
 @code{
 
-    private ToDoItems _toDoItems;
+    private List<ToDoData> _toDoItems;
     private bool _dialogIsOpen;
     protected override async Task OnInitializedAsync()
     {

@@ -35,7 +35,7 @@ namespace GrpcToDo.Web.Services
             var response = await _toDoService.DeleteToDoItemAsync(new ToDoQuery() { Id = Convert.ToInt32(id) });
             return response.Status;
         }
-        public async Task<ToDoItems> GetToDoList()
+        public async Task<List<ToDoData>> GetToDoList()
         {
             return await _toDoService.GetToDosAsync();
         }

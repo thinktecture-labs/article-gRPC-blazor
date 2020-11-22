@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using GrpcToDo.Shared.DTOs;
 using GrpcToDo.Shared.Services;
 using ProtoBuf.Grpc;
 
@@ -11,10 +10,10 @@ namespace GrpcToDo.Server.GrpcServices
 {
     public class TimeService : ITimeService
     {
-        public IAsyncEnumerable<TimeResult> SubscribeAsync(CallContext context = default)
+        public IAsyncEnumerable<string> SubscribeAsync(CallContext context = default)
             => SubscribeAsyncImpl(context.CancellationToken);
 
-        private async IAsyncEnumerable<TimeResult> SubscribeAsyncImpl(
+        private async IAsyncEnumerable<string> SubscribeAsyncImpl(
             [EnumeratorCancellation] CancellationToken cancel)
         {
             while (!cancel.IsCancellationRequested)
@@ -28,8 +27,7 @@ namespace GrpcToDo.Server.GrpcServices
                     break;
                 }
 
-                yield return new TimeResult
-                    {Time = $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}"};
+                yield return $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}";
             }
         }
     }

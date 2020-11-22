@@ -64,6 +64,7 @@ namespace GrpcToDo.Server
             {
                 endpoints.MapControllers();
                 endpoints.MapGrpcService<ToDoService>().EnableGrpcWeb();
+                endpoints.MapGrpcService<TimeService>().EnableGrpcWeb();
             });
         }
     }
