@@ -34,7 +34,7 @@ namespace GrpcToDo.Server
                             .AllowAnyMethod()
                             .AllowAnyHeader()
                             .AllowCredentials()
-                            .WithOrigins("https://localhost:49648");
+                            .WithOrigins("https://localhost:5003");
                     });
             });
             services.AddGrpc();
