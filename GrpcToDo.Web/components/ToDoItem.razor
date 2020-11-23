@@ -9,11 +9,12 @@
     </div>
     <div class="actions">
         @if (!Item.Status) {
-            <MatIconButton Icon="@MatIconNames.Done" @onclick="@(e => UpdateTaskAsync(Item))"></MatIconButton>
+            <MatIconButton Icon="@MatIconNames.Done" @onclick="@(e => UpdateTaskAsync())"></MatIconButton>
         }
-        <MatIconButton Icon="@MatIconNames.Delete" @onclick="@(e => DeleteTask(Item.Id))"></MatIconButton>
+        <MatIconButton Icon="@MatIconNames.Delete" @onclick="@(e => DeleteTask())"></MatIconButton>
     </div>
 </div>
+
 @code {
     [Parameter]
     public ToDoData Item { get; set; }
@@ -21,16 +22,16 @@
     [Parameter] 
     public EventCallback<bool> ToDoItemChanged { get; set; }
 
-    private async Task UpdateTaskAsync(ToDoData data) 
+    private async Task UpdateTaskAsync() 
     {
-        data.Status = true;
-        await ToDoService.UpdateToDoData(data);
+        Item.Status = true;
+        await ToDoService.UpdateToDoData(Item);
         await ToDoItemChanged.InvokeAsync(true);
     }
 
-    private async Task DeleteTask(int id) 
+    private async Task DeleteTask() 
     {
-        await ToDoService.DeleteDataAsync(id.ToString());
+        await ToDoService.DeleteDataAsync(Item.Id.ToString());
         await ToDoItemChanged.InvokeAsync(true);
     }
 }

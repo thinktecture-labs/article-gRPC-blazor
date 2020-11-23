@@ -16,9 +16,9 @@
     <p style="padding: 0 24px;">Sie haben derzeit keine Aufgaben</p>
 }
 
-<MatButton class="btn-add" Raised="true" OnClick="@(e => { _dialogIsOpen = true; })">Task hinzufügen</MatButton>
+<MatButton class="btn-add" Raised="true" OnClick="@(e => { _dialogIsOpen = true; })">Aufgabe hinzufügen</MatButton>
 
-<ToDoItemEditor DialogIsOpen="@_dialogIsOpen" DialogClosed="@(async (e) => { await CloseDialog(e); })"></ToDoItemEditor>
+<ToDoItemEditor DialogIsOpen="@_dialogIsOpen" DialogClosed="@(async (refresh) => { await CloseDialog(refresh); })"></ToDoItemEditor>
 
 @code{
 
