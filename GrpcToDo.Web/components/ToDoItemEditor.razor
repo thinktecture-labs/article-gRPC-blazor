@@ -6,7 +6,7 @@
     <MatDialogTitle>Add new Task</MatDialogTitle>
     <MatDialogContent>
         <p>What do you want to do?</p>
-        <MatTextField @bind-Value="@_newTaskTitle"></MatTextField>
+        <MatTextField @bind-Value="@_newTaskTitle" @bind-value:event="onchangeevent"></MatTextField>
         <MatTextField @bind-Value="@_newTaskDescription"></MatTextField>
     </MatDialogContent>
     <MatDialogActions>
