@@ -39,7 +39,7 @@
         await StartTime();
         await base.OnInitializedAsync();
     }
-    
+
     public void Dispose()
     {
         StopTime();
@@ -71,5 +71,11 @@
         _cts?.Cancel();
         _cts = null;
         _time = "";
+    }
+
+    [JSInvokable("NotifyError")]
+    public static void NotifyError(string error)
+    {
+        //Handle errors
     }
 }

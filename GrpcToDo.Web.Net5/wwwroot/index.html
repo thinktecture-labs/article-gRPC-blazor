@@ -21,6 +21,23 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        function reportError(error) {
+            if (DotNet) {
+                DotNet.invokeMethodAsync('GrpcToDo.Web', 'NotifyError', error);
+            }
+        }
+
+        var exLog = console.error;
+        console.error = function (msg) {
+            exLog.apply(console, arguments);
+            reportError(msg);
+        }
+
+        window.addEventListener("unhandledrejection", function (promiseRejectionEvent) {
+            reportError(promiseRejectionEvent.reason.message);
+        });
+    </script>
 </body>
 
 </html>
