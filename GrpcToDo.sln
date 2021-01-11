@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcToDo.Server", "GrpcToDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcToDo.Shared", "GrpcToDo.Shared\GrpcToDo.Shared.csproj", "{9C8A149F-2519-4397-99FB-BE752120E286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcToDo.Web", "GrpcToDo.Web.Net5\GrpcToDo.Web.csproj", "{35ABCD6F-8127-42AE-ABA1-EDA59D17035A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcToDo.Web", "GrpcToDo.Web\GrpcToDo.Web.csproj", "{35ABCD6F-8127-42AE-ABA1-EDA59D17035A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
