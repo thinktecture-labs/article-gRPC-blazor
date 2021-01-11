@@ -3,3 +3,4 @@ obj/
 .idea/
 /.DS_Store
 .vs
+/GrpcToDo.Web.Net5/.DS_Store
