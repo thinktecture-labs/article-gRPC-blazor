@@ -1,0 +1,8 @@
+﻿.todos {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.btn-add {
+    margin-left: 20px;
+}

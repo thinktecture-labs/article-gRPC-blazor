@@ -66,70 +66,8 @@ app {
         top: 0.5rem;
     }
 
-.todos {
-    display: flex;
-    flex-flow: wrap;
-}
-
 .btn-add {
     margin-left: 20px;
 }
 
-.td-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 250px;
-    margin: 20px;
-    padding: 20px;
-}
 
-    .td-card.checked {
-        background-color: #26b050;
-    }
-
-    .td-card p {
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-    }
-
-    .td-card .actions {
-        align-self: flex-end;
-    }
-
-.module {
-    width: 250px;
-    margin: 0 0 1em 0;
-    overflow: hidden;
-}
-
-    .module span {
-        margin: 0;
-        font-weight: lighter;
-    }
-
-.line-clamp {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-.fade {
-    position: relative;
-    height: 3.5em; /* exactly three lines */
-}
-
-    .fade:after {
-        content: "";
-        text-align: right;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 70%;
-        height: 1.2em;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
-    }
-
-.td-card.checked .module.fade:after {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), #26b050 50%);
-}
