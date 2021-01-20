@@ -1,8 +1,8 @@
-﻿using GrpcToDo.Shared.DTOs;
-using GrpcToDo.Shared.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GrpcToDo.Shared.DTOs;
+using GrpcToDo.Shared.Services;
 
 namespace GrpcToDo.Web.Services
 {
@@ -29,17 +29,13 @@ namespace GrpcToDo.Web.Services
 
         public async Task<bool> DeleteDataAsync(string id)
         {
-            var response = await _toDoService.DeleteToDoItemAsync(new ToDoQuery() { Id = Convert.ToInt32(id) });
+            var response = await _toDoService.DeleteToDoItemAsync(new ToDoQuery() {Id = Convert.ToInt32(id)});
             return response.Status;
         }
+
         public async Task<List<ToDoData>> GetToDoList()
         {
             return await _toDoService.GetToDosAsync();
-        }
-
-        public async Task<ToDoData> GetToDoItemAsync(int id)
-        {
-            return await _toDoService.GetTodoItem(new ToDoQuery() { Id = Convert.ToInt32(id) });
         }
     }
 }

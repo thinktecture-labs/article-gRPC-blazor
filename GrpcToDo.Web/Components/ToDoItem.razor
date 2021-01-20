@@ -1,38 +1,13 @@
-@using MatBlazor;
-@using GrpcToDo.Web.Services
-@using GrpcToDo.Shared.DTOs
-@inject ToDoService ToDoService
-
- <div class="mat-elevation-z5 td-card @(Item.Status ? "checked" : "")">
+<div class="mat-elevation-z5 td-card @(Item.Status ? "checked" : "")">
     <p>@Item.Title</p>
     <div class="module fade">
         <span>@Item.Description</span>
     </div>
     <div class="actions">
-        @if (!Item.Status) {
+        @if (!Item.Status)
+        {
             <MatIconButton Icon="@MatIconNames.Done" @onclick="@(e => UpdateTaskAsync())"></MatIconButton>
         }
         <MatIconButton Icon="@MatIconNames.Delete" @onclick="@(e => DeleteTask())"></MatIconButton>
     </div>
 </div>
-
-@code {
-    [Parameter]
-    public ToDoData Item { get; set; }
-
-    [Parameter] 
-    public EventCallback<bool> ToDoItemChanged { get; set; }
-
-    private async Task UpdateTaskAsync() 
-    {
-        Item.Status = true;
-        await ToDoService.UpdateToDoData(Item);
-        await ToDoItemChanged.InvokeAsync(true);
-    }
-
-    private async Task DeleteTask() 
-    {
-        await ToDoService.DeleteDataAsync(Item.Id.ToString());
-        await ToDoItemChanged.InvokeAsync(true);
-    }
-}

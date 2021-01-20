@@ -1,8 +1,6 @@
 @page "/"
-@using GrpcToDo.Shared.DTOs
 @using GrpcToDo.Web.Components
 @using MatBlazor
-@inject GrpcToDo.Web.Services.ToDoService ToDoService
 
 
 @if(_toDoItems != null && _toDoItems.Any()) 
@@ -22,33 +20,3 @@ else
 <MatButton class="btn-add" Raised="true" OnClick="@(e => { _dialogIsOpen = true; })">Aufgabe hinzufügen</MatButton>
 
 <ToDoItemEditor DialogIsOpen="@_dialogIsOpen" DialogClosed="@(async (refresh) => { await CloseDialog(refresh); })"></ToDoItemEditor>
-
-@code{
-
-    private List<ToDoData> _toDoItems;
-    private bool _dialogIsOpen;
-    protected override async Task OnInitializedAsync()
-    {
-        await GetToDoListAsync();
-    }
-
-    protected async Task GetToDoListAsync()
-    {
-        _toDoItems = await ToDoService.GetToDoList();
-    }
-
-    protected async Task CloseDialog(bool refresh) 
-    {
-        _dialogIsOpen = false;
-        if (refresh)
-        {
-            await Refresh();
-        } 
-    }
-
-    private async Task Refresh() 
-    {
-        _toDoItems = await ToDoService.GetToDoList();
-        StateHasChanged();
-    }
-}
