@@ -3,7 +3,7 @@
 namespace GrpcToDo.Shared.DTOs
 {
     [DataContract]
-    public class ToDoQuery
+    public class ToDoIdQuery
     {
         [DataMember(Order = 1)]
         public int Id { get; set; }

@@ -10,10 +10,16 @@ namespace GrpcToDo.Shared.Services
     [ServiceContract]
     public interface IToDoService
     {
+        [OperationContract]
         Task<List<ToDoData>> GetToDosAsync();
-        Task<ToDoData> GetTodoItem(ToDoQuery query);
-        Task<ToDoPostResponse> AddToDoItemAsync(ToDoData data);
-        Task<ToDoPostResponse> UpdateToDoItemAsync(ToDoData data);
-        Task<ToDoPostResponse> DeleteToDoItemAsync(ToDoQuery query);
+        
+        [OperationContract]
+        Task<ToDoRequestResponse> AddToDoItemAsync(ToDoData data);
+        
+        [OperationContract]
+        Task<ToDoRequestResponse> UpdateToDoItemAsync(ToDoData data);
+        
+        [OperationContract]
+        Task<ToDoRequestResponse> DeleteToDoItemAsync(ToDoIdQuery idQuery);
     }
 }

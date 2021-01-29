@@ -3,7 +3,7 @@
 namespace GrpcToDo.Shared.DTOs
 {
     [DataContract]
-    public class ToDoPostResponse
+    public class ToDoRequestResponse
     {
         [DataMember(Order = 1)]
         public string StatusMessage { get; set; }

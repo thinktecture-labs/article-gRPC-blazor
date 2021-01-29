@@ -17,13 +17,13 @@ namespace GrpcToDo.Server.GrpcServices
             _dataContext = dataContext;
         }
 
-        public Task<ToDoPostResponse> AddToDoItemAsync(ToDoData data)
+        public Task<ToDoRequestResponse> AddToDoItemAsync(ToDoData data)
         {
             _dataContext.ToDoDbItems.Add(data);
             var result = _dataContext.SaveChanges();
             if (result > 0)
             {
-                return Task.FromResult(new ToDoPostResponse()
+                return Task.FromResult(new ToDoRequestResponse()
                 {
                     Status = true,
                     StatusCode = 100,
@@ -31,7 +31,7 @@ namespace GrpcToDo.Server.GrpcServices
                 });
             }
 
-            return Task.FromResult(new ToDoPostResponse()
+            return Task.FromResult(new ToDoRequestResponse()
             {
                 Status = false,
                 StatusCode = 500,
@@ -39,13 +39,13 @@ namespace GrpcToDo.Server.GrpcServices
             });
         }
 
-        public async Task<ToDoPostResponse> UpdateToDoItemAsync(ToDoData data)
+        public async Task<ToDoRequestResponse> UpdateToDoItemAsync(ToDoData data)
         {
             var item = await _dataContext.ToDoDbItems
                 .FirstOrDefaultAsync(toDoData => toDoData.Id == data.Id);
             if (item == null)
             {
-                return new ToDoPostResponse()
+                return new ToDoRequestResponse()
                 {
                     Status = false,
                     StatusCode = 404,
@@ -57,7 +57,7 @@ namespace GrpcToDo.Server.GrpcServices
             item.Description = data.Description;
             item.Status = data.Status;
             await _dataContext.SaveChangesAsync();
-            return new ToDoPostResponse()
+            return new ToDoRequestResponse()
             {
                 Status = true,
                 StatusCode = 100,
@@ -65,10 +65,10 @@ namespace GrpcToDo.Server.GrpcServices
             };
         }
 
-        public Task<ToDoPostResponse> DeleteToDoItemAsync(ToDoQuery query)
+        public Task<ToDoRequestResponse> DeleteToDoItemAsync(ToDoIdQuery idQuery)
         {
             var item = _dataContext.ToDoDbItems
-                .Single(toDoData => toDoData.Id == query.Id);
+                .Single(toDoData => toDoData.Id == idQuery.Id);
 
             _dataContext.ToDoDbItems.Remove(item);
 
@@ -76,7 +76,7 @@ namespace GrpcToDo.Server.GrpcServices
 
             if (result > 0)
             {
-                return Task.FromResult(new ToDoPostResponse()
+                return Task.FromResult(new ToDoRequestResponse()
                 {
                     Status = true,
                     StatusCode = 100,
@@ -84,17 +84,12 @@ namespace GrpcToDo.Server.GrpcServices
                 });
             }
 
-            return Task.FromResult(new ToDoPostResponse()
+            return Task.FromResult(new ToDoRequestResponse()
             {
                 Status = false,
                 StatusCode = 500,
                 StatusMessage = "Issue Occured."
             });
-        }
-
-        public Task<ToDoData> GetTodoItem(ToDoQuery query)
-        {
-            return _dataContext.ToDoDbItems.Where(item => item.Id == query.Id).FirstOrDefaultAsync();
         }
 
         public async Task<List<ToDoData>> GetToDosAsync()

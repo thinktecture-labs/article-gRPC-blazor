@@ -18,12 +18,12 @@ namespace GrpcToDo.Web.Pages
             await GetToDoListAsync();
         }
 
-        protected async Task GetToDoListAsync()
+        private async Task GetToDoListAsync()
         {
-            _toDoItems = await ToDoService.GetToDoList();
+            _toDoItems = await ToDoService.GetToDoListAsync();
         }
 
-        protected async Task CloseDialog(bool refresh)
+        private async Task CloseDialog(bool refresh)
         {
             _dialogIsOpen = false;
             if (refresh)
@@ -32,9 +32,9 @@ namespace GrpcToDo.Web.Pages
             }
         }
 
-        protected async Task Refresh()
+        private async Task Refresh()
         {
-            _toDoItems = await ToDoService.GetToDoList();
+            _toDoItems = await ToDoService.GetToDoListAsync();
             StateHasChanged();
         }
     }

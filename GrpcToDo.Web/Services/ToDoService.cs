@@ -15,25 +15,22 @@ namespace GrpcToDo.Web.Services
             _toDoService = todoService;
         }
 
-        public async Task<bool> AddToDoData(ToDoData data)
+        public Task AddToDoData(ToDoData data)
         {
-            var response = await _toDoService.AddToDoItemAsync(data);
-            return response.Status;
+            return _toDoService.AddToDoItemAsync(data);
         }
 
-        public async Task<bool> UpdateToDoData(ToDoData data)
+        public Task UpdateToDoData(ToDoData data)
         {
-            var response = await _toDoService.UpdateToDoItemAsync(data);
-            return response.Status;
+            return _toDoService.UpdateToDoItemAsync(data);
         }
 
-        public async Task<bool> DeleteDataAsync(string id)
+        public Task DeleteDataAsync(string id)
         {
-            var response = await _toDoService.DeleteToDoItemAsync(new ToDoQuery() {Id = Convert.ToInt32(id)});
-            return response.Status;
+            return _toDoService.DeleteToDoItemAsync(new ToDoIdQuery() {Id = Convert.ToInt32(id)});
         }
 
-        public async Task<List<ToDoData>> GetToDoList()
+        public async Task<List<ToDoData>> GetToDoListAsync()
         {
             return await _toDoService.GetToDosAsync();
         }
