@@ -1,6 +1,4 @@
-using System;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace GrpcToDo.Shared.DTOs
 {

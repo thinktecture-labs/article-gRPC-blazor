@@ -1,12 +1,11 @@
 @page "/"
 
-
-@if(_toDoItems != null && _toDoItems.Any()) 
+@if (_toDoItems != null && _toDoItems.Any())
 {
     <div class="todos">
         @foreach (var task in _toDoItems)
         {
-            <ToDoItem Item=@task ToDoItemChanged="Refresh"></ToDoItem>
+            <ToDoItem Item=@task ToDoItemChanged="RefreshAsync"></ToDoItem>
         }
     </div>
 }

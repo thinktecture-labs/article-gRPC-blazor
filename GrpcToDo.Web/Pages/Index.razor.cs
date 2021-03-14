@@ -28,11 +28,11 @@ namespace GrpcToDo.Web.Pages
             _dialogIsOpen = false;
             if (refresh)
             {
-                await Refresh();
+                await RefreshAsync();
             }
         }
 
-        private async Task Refresh()
+        private async Task RefreshAsync()
         {
             _toDoItems = await ToDoService.GetToDoListAsync();
             StateHasChanged();
