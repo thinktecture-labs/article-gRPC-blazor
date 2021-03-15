@@ -5,7 +5,7 @@
     <div class="todos">
         @foreach (var task in _toDoItems)
         {
-            <ToDoItem @key="task.Id" Item="@task" ToDoItemChanged="@RefreshAsync"></ToDoItem>
+            <ToDoItem Class="item" @key="task.Id" Item="@task" ToDoItemChanged="@RefreshAsync"></ToDoItem>
         }
     </div>
 }
@@ -14,6 +14,4 @@ else
     <p class="info">Es sind derzeit keine Aufgaben zu erledigen.</p>
 }
 
-<MatButton class="btn-add" Raised="true" OnClick="@(e => { _dialogIsOpen = true; })">Aufgabe hinzufügen</MatButton>
-
-<ToDoItemEditor DialogIsOpen="@_dialogIsOpen" DialogClosed="@(async (refresh) => { await CloseDialog(refresh); })"></ToDoItemEditor>
+<MudButton Class="btn-add" Color="Color.Primary" Variant="Variant.Filled" Raised="true" OnClick="@OpenDialog">Aufgabe hinzufügen</MudButton>

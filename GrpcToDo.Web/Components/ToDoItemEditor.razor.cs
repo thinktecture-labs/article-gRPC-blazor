@@ -4,25 +4,22 @@ using GrpcToDo.Shared.DTOs;
 using GrpcToDo.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 
 namespace GrpcToDo.Web.Components
 {
     public partial class ToDoItemEditor
     {
-        [Inject] private ToDoService ToDoService { get; set; }
-
-        [Parameter]
-        public bool DialogIsOpen
-        {
-            get => _dialogIsOpen;
-            set => _dialogIsOpen = value;
-        }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
         [Parameter] public EventCallback<bool> DialogClosed { get; set; }
+        [Inject] private ToDoService ToDoService { get; set; }
 
-        private bool _dialogIsOpen;
         private string _newTaskTitle;
         private string _newTaskDescription;
+        private bool _success;
+        private MudForm _form;
+        private void Close() => MudDialog.Close();
 
         private async Task AddNewTask(MouseEventArgs e)
         {
@@ -34,16 +31,9 @@ namespace GrpcToDo.Web.Components
                 Description = _newTaskDescription,
                 Status = false
             });
-            _dialogIsOpen = false;
             _newTaskTitle = null;
             _newTaskDescription = null;
-            await DialogClosed.InvokeAsync(true);
-        }
-
-        private async Task Close()
-        {
-            _dialogIsOpen = false;
-            await DialogClosed.InvokeAsync(false);
+            MudDialog.Close(DialogResult.Ok(true));
         }
     }
 }

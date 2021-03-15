@@ -1,80 +1,21 @@
 @inherits LayoutComponentBase
-@using GrpcToDo.Shared.Services
-@using System.Threading
-@using Grpc.Core
-@using ProtoBuf.Grpc
-@implements IDisposable
-@inject NavigationManager Navigation
-@inject ITimeService TimeService
 
-<MatAppBarContainer>
-    <MatAppBar Class="mat" Fixed="true">
-        <MatAppBarRow Style="justify-content: space-between">
-            <MatAppBarSection>
-                <div class="sr-tt-logo" @onclick="@((e) => Navigation.NavigateTo(""))">
-                </div>
-            </MatAppBarSection>
-            <MatAppBarSection Style="justify-content: center">
-                <MatAppBarTitle>ToDo - Web Assembly with gRPC</MatAppBarTitle>
-            </MatAppBarSection>
-            <MatAppBarSection Style="justify-content: flex-end">
-                <span>@_time</span>
-            </MatAppBarSection>
-        </MatAppBarRow>
-    </MatAppBar>
-
-    <MatAppBarContent>
-        @Body
-    </MatAppBarContent>
-</MatAppBarContainer>
-
-@code
-{
-    private string _time = "";
-    private CancellationTokenSource _cts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await StartTime();
-        await base.OnInitializedAsync();
-    }
-
-    public void Dispose()
-    {
-        StopTime();
-    }
-
-    private async Task StartTime()
-    {
-        _cts = new CancellationTokenSource();
-        var options = new CallOptions(cancellationToken: _cts.Token);
-
-        try
-        {
-            await foreach (var time in TimeService.SubscribeAsync(new CallContext(options)))
-            {
-                _time = time;
-                StateHasChanged();
-            }
-        }
-        catch (RpcException)
-        {
-        }
-        catch (OperationCanceledException)
-        {
-        }
-    }
-
-    private void StopTime()
-    {
-        _cts?.Cancel();
-        _cts = null;
-        _time = "";
-    }
-
-    [JSInvokable("NotifyError")]
-    public static void NotifyError(string error)
-    {
-        //Handle errors
-    }
-}
+<MudThemeProvider Theme="_currentTheme"/>
+<MudDialogProvider FullWidth="true"
+                   MaxWidth="MaxWidth.Medium"
+                   CloseButton="true"
+                   DisableBackdropClick="true"
+                   Position="DialogPosition.Center"/>
+<MudSnackbarProvider/>
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudText Typo="Typo.h5">Blazor WebAssembly Forms</MudText>
+        <MudAppBarSpacer/>
+        <MudText>@_time</MudText>
+    </MudAppBar>
+    <MudMainContent Class="pt-16 px-16">
+        <MudContainer Class="mt-6">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>

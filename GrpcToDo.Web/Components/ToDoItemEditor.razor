@@ -1,12 +1,12 @@
-<MatDialog @bind-IsOpen="@_dialogIsOpen">
-    <MatDialogTitle>Add new Task</MatDialogTitle>
-    <MatDialogContent>
-        <p>What do you want to do?</p>
-        <MatTextField @bind-Value="@_newTaskTitle"></MatTextField>
-        <MatTextField @bind-Value="@_newTaskDescription"></MatTextField>
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@Close">Cancel</MatButton>
-        <MatButton OnClick="@AddNewTask">Save</MatButton>
-    </MatDialogActions>
-</MatDialog>
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="_form" @bind-IsValid="@_success">
+            <MudTextField @bind-Value="@_newTaskTitle" T="string" Label="Title" Required="true" RequiredError="Title is required!"></MudTextField>
+            <MudTextField T="string" Label="Description" Variant="Variant.Text" @bind-value="@_newTaskDescription" Lines="5"/>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@Close">Cancel</MudButton>
+        <MudButton OnClick="@AddNewTask" Disabled="@(!_success)">Save</MudButton>
+    </DialogActions>
+</MudDialog>

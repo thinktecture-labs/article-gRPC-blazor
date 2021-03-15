@@ -7,6 +7,7 @@ using GrpcToDo.Shared.Services;
 using GrpcToDo.Web.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor.Services;
 using ProtoBuf.Grpc.Client;
 
 namespace GrpcToDo.Web
@@ -33,6 +34,7 @@ namespace GrpcToDo.Web
                 var channel = GrpcChannel.ForAddress("https://localhost:5001", new GrpcChannelOptions { HttpClient = httpClient });
                 return channel.CreateGrpcService<ITimeService>();
             });
+            builder.Services.AddMudServices();
 
             await builder.Build().RunAsync();
         }

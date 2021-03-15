@@ -1,13 +1,13 @@
-<div class="mat-elevation-z5 td-card @(Item.Status ? "checked" : "")">
-    <p>@Item.Title</p>
-    <div class="module fade">
-        <span>@Item.Description</span>
-    </div>
-    <div class="actions">
+<MudCard Outlined="@Item.Status" Class="@_cssClass">
+    <MudCardContent>
+        <MudText>@Item.Title</MudText>
+        <MudText Class="fade" Typo="Typo.body2">@Item.Description</MudText>
+    </MudCardContent>
+    <MudCardActions>
         @if (!Item.Status)
         {
-            <MatIconButton Icon="@MatIconNames.Done" @onclick="@(e => UpdateTaskAsync())"></MatIconButton>
+            <MudIconButton Icon="@Icons.Material.Filled.Done" @onclick="@(e => UpdateTaskAsync())"></MudIconButton>
         }
-        <MatIconButton Icon="@MatIconNames.Delete" @onclick="@(e => DeleteTask())"></MatIconButton>
-    </div>
-</div>
+        <MudIconButton Icon="@Icons.Material.Filled.Delete" @onclick="@(e => DeleteTask())"></MudIconButton>
+    </MudCardActions>
+</MudCard>

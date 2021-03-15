@@ -6,7 +6,7 @@
     padding: 0;
 }
 
-app {
+.app {
     width: 100%;
     height: 100%;
     position: relative;
@@ -59,15 +59,53 @@ app {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
-
-.btn-add {
-    margin-left: 20px;
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
 }
 
 
+.mud-paper {
+    width: 250px;
+    overflow: hidden;
+}
+
+.mud-paper.checked {
+    background-color: #26b050;
+}
+
+.mud-card-content {
+    overflow: hidden;
+    padding: 16px 16px 0 !important;
+}
+
+.fade {
+    position: relative;
+    height: 60px; /* exactly three lines */
+}
+
+.fade:after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+}
+
+.item {
+    margin-right: 12px;
+}
+
+
+.mud-paper.checked .fade:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #26b050 50%);
+}
+
+.btn-add {
+    margin-top: 16px !important;
+}
