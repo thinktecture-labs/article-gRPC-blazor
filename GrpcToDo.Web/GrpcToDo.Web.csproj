@@ -12,11 +12,6 @@
     <PackageReference Include="protobuf-net.Grpc" Version="1.0.147" />
     <PackageReference Include="Grpc.Net.Client" Version="2.35.0" />
     <PackageReference Include="Grpc.Net.Client.Web" Version="2.35.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.15.6" />
-    <PackageReference Include="Grpc.Tools" Version="2.36.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.4" />
   </ItemGroup>
 

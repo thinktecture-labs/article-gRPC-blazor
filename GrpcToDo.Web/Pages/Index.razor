@@ -5,13 +5,13 @@
     <div class="todos">
         @foreach (var task in _toDoItems)
         {
-            <ToDoItem Item=@task ToDoItemChanged="RefreshAsync"></ToDoItem>
+            <ToDoItem @key="task.Id" Item="@task" ToDoItemChanged="@RefreshAsync"></ToDoItem>
         }
     </div>
 }
 else
 {
-    <p style="padding: 0 24px;">Sie haben derzeit keine Aufgaben</p>
+    <p class="info">Es sind derzeit keine Aufgaben zu erledigen.</p>
 }
 
 <MatButton class="btn-add" Raised="true" OnClick="@(e => { _dialogIsOpen = true; })">Aufgabe hinzufügen</MatButton>
