@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GrpcToDo.Shared.DTOs;
 using GrpcToDo.Web.Components;
@@ -17,12 +18,7 @@ namespace GrpcToDo.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            await GetToDoListAsync();
-        }
-
-        private async Task GetToDoListAsync()
-        {
-            _toDoItems = await ToDoService.GetToDoListAsync();
+            await LoadTodosFromServerAsync();
         }
 
         private async Task OpenDialog()
@@ -37,8 +33,21 @@ namespace GrpcToDo.Web.Pages
 
         private async Task RefreshAsync()
         {
-            _toDoItems = await ToDoService.GetToDoListAsync();
-            StateHasChanged();
+            await LoadTodosFromServerAsync();
+        }
+
+        private async Task LoadTodosFromServerAsync()
+        {
+            try
+            {
+                _toDoItems = await ToDoService.GetToDoListAsync();
+                StateHasChanged();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to load todo list.");
+                _toDoItems = new List<ToDoData>();
+            }
         }
     }
 }

@@ -25,7 +25,7 @@
 <script>
     function reportError(error) {
         if (DotNet) {
-            DotNet.invokeMethodAsync('GrpcToDo.Web', 'NotifyError', error);
+            DotNet.invokeMethod('GrpcToDo.Web', 'NotifyError', error);
         }
     }
 
