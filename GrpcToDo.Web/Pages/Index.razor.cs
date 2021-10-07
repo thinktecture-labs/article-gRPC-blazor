@@ -43,7 +43,7 @@ namespace GrpcToDo.Web.Pages
                 _toDoItems = await ToDoService.GetToDoListAsync();
                 StateHasChanged();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Failed to load todo list.");
                 _toDoItems = new List<ToDoData>();
