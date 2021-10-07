@@ -27,7 +27,7 @@ namespace GrpcToDo.Server.GrpcServices
                     break;
                 }
 
-                yield return $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}";
+                yield return $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()}";
             }
         }
     }
