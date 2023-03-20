@@ -37,7 +37,7 @@ h1:focus {
 }
 
     .item.checked {
-        box-shadow: -5px -2px 10px -2px #3d6fb4, 4px 5px 10px 1px #3d6fb4;
+        box-shadow: rgba(61, 111, 180, 0.2) 0px 2px 8px 0px;
     }
 
 .actions {
