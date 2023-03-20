@@ -30,3 +30,16 @@ h1:focus {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+.item {
+    width: 300px;
+}
+
+    .item.checked {
+        box-shadow: -5px -2px 10px -2px #3d6fb4, 4px 5px 10px 1px #3d6fb4;
+    }
+
+.actions {
+    float: right;
+}

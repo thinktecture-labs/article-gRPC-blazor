@@ -5,7 +5,7 @@
     <div class="todos">
         @foreach (var task in _toDoItems)
         {
-            <ToDoItem Class="item" @key="task.Id" Item="@task" ToDoItemChanged="@RefreshAsync"></ToDoItem>
+            <ToDoItem @key="task.Id" Item="@task" ToDoItemChanged="@RefreshAsync"></ToDoItem>
         }
     </div>
 }
@@ -13,5 +13,6 @@ else
 {
     <p class="info">Es sind derzeit keine Aufgaben zu erledigen.</p>
 }
-
-<MudButton Class="btn-add" Color="Color.Primary" Variant="Variant.Filled" Raised="true" OnClick="@OpenDialog">Aufgabe hinzufügen</MudButton>
+<div class="btn-add">
+    <MudButton Color="Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" OnClick="@OpenDialog">Aufgabe hinzufügen</MudButton>
+</div>

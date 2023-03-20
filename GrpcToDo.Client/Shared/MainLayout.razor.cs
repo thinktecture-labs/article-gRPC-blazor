@@ -9,6 +9,7 @@ namespace GrpcToDo.Client.Shared
     public partial class MainLayout : IDisposable
     {
         [Inject] private ITimeService TimeService { get; set; } = default!;
+        [Inject] private IDialogService DialogService { get; set; } = default!;
 
         private string _time = "";
         private CancellationTokenSource _cts;
@@ -20,7 +21,8 @@ namespace GrpcToDo.Client.Shared
             Palette = new Palette()
             {
                 Black = "#272c34",
-                AppbarBackground = "#ff584f",
+                AppbarBackground = "#ffffff",
+                AppbarText = "#ff584f",
                 ActionDefault = "#ff584f",
                 Primary = "#ff584f",
                 Secondary = "#3d6fb4"

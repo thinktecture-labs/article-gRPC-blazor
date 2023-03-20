@@ -9,22 +9,21 @@ namespace GrpcToDo.Client.Components
         [Inject] private ToDoService ToDoService { get; set; } = default!;
 
         [Parameter] public ToDoData Item { get; set; } = default!;
-        [Parameter] public string Class { get; set; } = string.Empty;
 
         [Parameter] public EventCallback<bool> ToDoItemChanged { get; set; }
 
-        private string _cssClass = string.Empty;
+        private string _cssClass = "item";
 
         protected override void OnInitialized()
         {
-            _cssClass = Item.Status ? $"{Class} checked" : Class;
+            _cssClass = Item.Status ? $"item checked" : "item";
             base.OnInitialized();
         }
 
         private async Task UpdateTaskAsync()
         {
             Item.Status = true;
-            _cssClass = Item.Status ? $"{Class} checked" : Class;
+            _cssClass = Item.Status ? $"item checked" : "item";
             await ToDoService.UpdateToDoData(Item);
             await ToDoItemChanged.InvokeAsync(true);
         }

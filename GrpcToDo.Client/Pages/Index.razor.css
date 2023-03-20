@@ -1,4 +1,11 @@
 ﻿.todos {
     display: flex;
     flex-flow: wrap;
+    gap: 1rem;
+}
+
+.btn-add {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
 }

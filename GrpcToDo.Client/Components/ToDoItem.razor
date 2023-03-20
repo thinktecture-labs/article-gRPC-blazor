@@ -3,11 +3,11 @@
         <MudText>@Item.Title</MudText>
         <MudText Class="fade" Typo="Typo.body2">@Item.Description</MudText>
     </MudCardContent>
-    <MudCardActions>
+    <MudCardActions Class="actions">
         @if (!Item.Status)
         {
-            <MudIconButton Icon="@Icons.Material.Filled.Done" @onclick="@(e => UpdateTaskAsync())"></MudIconButton>
+            <MudIconButton Color="Color.Secondary" Icon="@Icons.Material.Filled.Done" @onclick="@(e => UpdateTaskAsync())"></MudIconButton>
         }
-        <MudIconButton Icon="@Icons.Material.Filled.Delete" @onclick="@(e => DeleteTask())"></MudIconButton>
+        <MudIconButton Color="Color.Secondary" Icon="@Icons.Material.Filled.Delete" @onclick="@(e => DeleteTask())"></MudIconButton>
     </MudCardActions>
 </MudCard>
