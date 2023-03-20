@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using GrpcToDo.Client.Components;
+using GrpcToDo.Client.Services;
 using GrpcToDo.Shared.DTOs;
-using GrpcToDo.Web.Components;
-using GrpcToDo.Web.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace GrpcToDo.Web.Pages
+namespace GrpcToDo.Client.Pages
 {
     public partial class Index
     {
-        [Inject] private ToDoService ToDoService { get; set; }
-        [Inject] private IDialogService DialogService { get; set; }
+        [Inject] private ToDoService ToDoService { get; set; } = default!;
+        [Inject] private IDialogService DialogService { get; set; } = default!;
 
-        private List<ToDoData> _toDoItems;
+        private List<ToDoData> _toDoItems = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -25,7 +22,7 @@ namespace GrpcToDo.Web.Pages
         {
             var reference = DialogService.Show<ToDoItemEditor>("Aufgabe hinzufügen");
             var result = await reference.Result;
-            if (!result.Cancelled)
+            if (result is null || !result.Canceled)
             {
                 await RefreshAsync();
             }

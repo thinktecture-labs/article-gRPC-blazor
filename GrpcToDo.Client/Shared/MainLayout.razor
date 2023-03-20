@@ -1,0 +1,21 @@
+@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="_currentTheme"/>
+<MudDialogProvider FullWidth="true"
+                   MaxWidth="MaxWidth.Medium"
+                   CloseButton="true"
+                   DisableBackdropClick="true"
+                   Position="DialogPosition.Center"/>
+<MudSnackbarProvider/>
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudText Typo="Typo.h5">Blazor WebAssembly Forms</MudText>
+        <MudSpacer/>
+        <MudText>@_time</MudText>
+    </MudAppBar>
+    <MudMainContent Class="pt-16 px-16">
+        <MudContainer Class="mt-6">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>

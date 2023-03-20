@@ -1,17 +1,14 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Grpc.Core;
-using GrpcToDo.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Grpc.Core;
+using GrpcToDo.Shared.Services;
 using ProtoBuf.Grpc;
 
-namespace GrpcToDo.Web.Shared
+namespace GrpcToDo.Client.Shared
 {
     public partial class MainLayout : IDisposable
     {
-        [Inject] private ITimeService TimeService { get; set; }
+        [Inject] private ITimeService TimeService { get; set; } = default!;
 
         private string _time = "";
         private CancellationTokenSource _cts;

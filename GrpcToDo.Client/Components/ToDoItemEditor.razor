@@ -1,6 +1,6 @@
 <MudDialog>
     <DialogContent>
-        <MudForm @ref="_form" @bind-IsValid="@_success">
+        <MudForm @bind-IsValid="@_success">
             <MudTextField @bind-Value="@_newTaskTitle" T="string" Label="Title" Required="true" RequiredError="Title is required!"></MudTextField>
             <MudTextField T="string" Label="Description" Variant="Variant.Text" @bind-value="@_newTaskDescription" Lines="5"/>
         </MudForm>

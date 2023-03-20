@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GrpcToDo.Server.Data;
+﻿using GrpcToDo.Server.Data;
 using GrpcToDo.Shared.DTOs;
 using GrpcToDo.Shared.Services;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,4 @@
 using ProtoBuf.Grpc;
-using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace GrpcToDo.Shared.Services

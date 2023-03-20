@@ -1,20 +1,19 @@
-using System.Threading.Tasks;
+using GrpcToDo.Client.Services;
 using GrpcToDo.Shared.DTOs;
-using GrpcToDo.Web.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace GrpcToDo.Web.Components
+namespace GrpcToDo.Client.Components
 {
     public partial class ToDoItem
     {
-        [Inject] private ToDoService ToDoService { get; set; }
+        [Inject] private ToDoService ToDoService { get; set; } = default!;
 
-        [Parameter] public ToDoData Item { get; set; }
-        [Parameter] public string Class { get; set; }
+        [Parameter] public ToDoData Item { get; set; } = default!;
+        [Parameter] public string Class { get; set; } = string.Empty;
 
         [Parameter] public EventCallback<bool> ToDoItemChanged { get; set; }
 
-        private string _cssClass;
+        private string _cssClass = string.Empty;
 
         protected override void OnInitialized()
         {

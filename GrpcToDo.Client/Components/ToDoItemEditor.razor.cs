@@ -1,24 +1,22 @@
 using System;
 using System.Threading.Tasks;
+using GrpcToDo.Client.Services;
 using GrpcToDo.Shared.DTOs;
-using GrpcToDo.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 
-namespace GrpcToDo.Web.Components
+namespace GrpcToDo.Client.Components
 {
     public partial class ToDoItemEditor
     {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-
+        [Inject] private ToDoService ToDoService { get; set; } = default!;
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public EventCallback<bool> DialogClosed { get; set; }
-        [Inject] private ToDoService ToDoService { get; set; }
 
-        private string _newTaskTitle;
-        private string _newTaskDescription;
+        private string? _newTaskTitle;
+        private string? _newTaskDescription;
         private bool _success;
-        private MudForm _form;
         private void Close() => MudDialog.Close();
 
         private async Task AddNewTask(MouseEventArgs e)
@@ -26,9 +24,9 @@ namespace GrpcToDo.Web.Components
             var rnd = new Random();
             await ToDoService.AddToDoData(new ToDoData
             {
-                Id = rnd.Next(0, Int32.MaxValue),
-                Title = _newTaskTitle,
-                Description = _newTaskDescription,
+                Id = rnd.Next(0, int.MaxValue),
+                Title = _newTaskTitle ?? string.Empty,
+                Description = _newTaskDescription ?? string.Empty,
                 Status = false
             });
             _newTaskTitle = null;
